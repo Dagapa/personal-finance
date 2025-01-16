@@ -1,30 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class SupabaseService {
-  private supabase: SupabaseClient;
+  private readonly supabase: SupabaseClient;
 
-  constructor() {
-    const SUPABASE_URL = process.env.SUPABASE_URL || '';
-    const SUPABASE_KEY = process.env.SUPABASE_KEY || '';
+  constructor(private readonly configService: ConfigService) {
+    const SUPABASE_URL = this.configService.get<string>('SUPABASE_URL');
+    const SUPABASE_KEY = this.configService.get<string>('SUPABASE_KEY');
+
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      throw new Error('Supabase URL or Key is missing in environment variables');
+    }
 
     this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   }
 
-  async getUsers() {
-    const { data, error } = await this.supabase.from('users').select('*');
-    if (error) {
-      throw new Error(error.message);
-    }
-    return data;
-  }
-
-  async addUser(user: { name: string; email: string }) {
-    const { data, error } = await this.supabase.from('users').insert(user);
-    if (error) {
-      throw new Error(error.message);
-    }
-    return data;
+  getClient(): SupabaseClient {
+    return this.supabase;
   }
 }
