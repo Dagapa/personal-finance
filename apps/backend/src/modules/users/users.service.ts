@@ -5,6 +5,21 @@ import { SupabaseService } from '../../supabase/supabase.service';
 export class UsersService {
   constructor(private readonly supabaseService: SupabaseService) { }
 
+  async listUsers() {
+    const supabase = this.supabaseService.getClient();
+
+    // Consulta a la tabla `users` en Supabase
+    const { data, error } = await supabase
+      .from('users')
+      .select('id, email, name, created_at');
+
+    if (error) {
+      throw new BadRequestException(`Error fetching users: ${error.message}`);
+    }
+
+    return data;
+  }
+
   async createUser(email: string, password: string, name: string) {
     const supabase = this.supabaseService.getClient();
 
