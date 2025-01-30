@@ -1,3 +1,4 @@
+import styles from "./styles.module.css";
 import { Transaction, TransactionType } from "../../models/transactions";
 import { addNewTransaction, getFormValues } from "../../services/transactionServices";
 
@@ -23,7 +24,7 @@ export const TransactionForm = () => {
   };
 
   return (
-    <form onSubmit={createNewTransaction}>
+    <form onSubmit={createNewTransaction} className={styles.form}>
       <input type="number" placeholder="Amount" name="amount" />
       <input type="text" placeholder="Category" name="category" />
       <input type="text" placeholder="Description" name="description" />
