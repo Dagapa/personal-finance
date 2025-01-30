@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import { Header } from "../src/shared/components/header";
+import { TransactionForm } from "../src/transaction/components/transactionForm/transactionForm";
 
 export default function Home() {
   // const [users, setUsers] = useState([]);
@@ -26,6 +27,7 @@ export default function Home() {
     <main className={styles.page}>
       <Header />
       <h1>Welcome to Personal Finance</h1>
+      <TransactionForm />
 
     </main>
   );
