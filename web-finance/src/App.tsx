@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Transaction } from "./components/transaction/transaction";
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -17,8 +18,7 @@ function App() {
           >
             X
           </button>
-          <h1 className="text-4xl font-bold">Web Finance</h1>
-          <p className="text-2xl">Una aplicación web para gestionar tus finanzas</p>
+          <Transaction />
         </div>
       </div>
 
