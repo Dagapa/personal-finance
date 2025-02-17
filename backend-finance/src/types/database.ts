@@ -9,6 +9,26 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      users: {
+        Row: {
+          id: string
+          email: string
+          name: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          email: string
+          name: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          email?: string
+          name?: string
+          created_at?: string | null
+        }
+      }
       transactions: {
         Row: {
           id: string
@@ -47,6 +67,7 @@ export interface Database {
     }
   }
 }
+
 
 // También podemos generar tipos específicos para las consultas de Supabase
 export type Tables<T extends keyof Database['public']['Tables']> = Database['public']['Tables'][T]['Row']
