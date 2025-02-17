@@ -1,10 +1,20 @@
-import app from './infrastructure/http/server';
-import { config } from './config/env';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express, { Application } from 'express';
 
-const startServer = () => {
-  app.listen(config.PORT, () => {
-    console.log(`Server is running on port ${config.PORT}`);
-  });
-};
+import transactionRoutes from './routes/transactions';
 
-startServer();
+dotenv.config();
+
+const app: Application = express();
+const port: number = parseInt(process.env.PORT || '3000', 10);
+
+app.use(cors());
+app.use(express.json());
+
+// Rutas
+app.use('/api/transactions', transactionRoutes);
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
