@@ -1,61 +1,45 @@
+import { Request, Response } from 'express';
 import { supabase } from '../config/supabase';
 import { SignUpDTO, SignInDTO, SignUpSchema, SignInSchema } from '../types/auth';
-
 import z from 'zod';
-import { Request, Response } from 'express';
 
 export const signUp = async (req: Request<{}, {}, SignUpDTO>, res: Response) => {
   try {
+    // Validar datos de entrada
     const validatedData = SignUpSchema.parse(req.body);
     
-    // Primero creamos el usuario en la tabla users
-    const { data: userData, error: userError } = await supabase
-      .from('users')
-      .insert([
-        {
-          email: validatedData.email,
-          name: validatedData.name
-        }
-      ])
-      .select()
-      .single();
-
-    if (userError) {
-      // Si el error es de unique constraint en email
-      if (userError.code === '23505') {
-        return res.status(400).json({ 
-          error: 'El email ya está registrado' 
-        });
-      }
-      throw userError;
-    }
-
-    // Luego creamos la autenticación
+    // Registrar usuario en Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
       options: {
         data: {
-          id: userData.id, // Vinculamos con el id del usuario creado
-          name: validatedData.name
+          full_name: validatedData.full_name
         }
       }
     });
 
-    if (authError) {
-      // Si hay error en auth, eliminamos el usuario creado
-      await supabase
+    if (authError) throw authError;
+
+    // Crear perfil de usuario en la tabla users
+    if (authData.user) {
+      const { error: profileError } = await supabase
         .from('users')
-        .delete()
-        .eq('id', userData.id);
-      throw authError;
+        .insert([
+          {
+            id: authData.user.id,
+            email: validatedData.email,
+            full_name: validatedData.full_name
+          }
+        ]);
+
+      if (profileError) throw profileError;
     }
 
     res.status(201).json({
       message: 'Usuario registrado exitosamente. Por favor verifica tu email.',
-      user: userData
+      user: authData.user
     });
-
   } catch (error) {
     if (error instanceof z.ZodError) {
       res.status(400).json({ error: error.errors });
@@ -69,27 +53,20 @@ export const signUp = async (req: Request<{}, {}, SignUpDTO>, res: Response) => 
 
 export const signIn = async (req: Request<{}, {}, SignInDTO>, res: Response) => {
   try {
+    // Validar datos de entrada
     const validatedData = SignInSchema.parse(req.body);
 
-    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+    // Iniciar sesión con Supabase Auth
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: validatedData.email,
       password: validatedData.password
     });
 
-    if (authError) throw authError;
-
-    // Obtener los datos del usuario de nuestra tabla users
-    const { data: userData, error: userError } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', validatedData.email)
-      .single();
-
-    if (userError) throw userError;
+    if (error) throw error;
 
     res.json({
-      session: authData.session,
-      user: userData
+      session: data.session,
+      user: data.user
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -99,5 +76,18 @@ export const signIn = async (req: Request<{}, {}, SignInDTO>, res: Response) => 
         error: error instanceof Error ? error.message : 'Error desconocido'
       });
     }
+  }
+};
+
+export const signOut = async (req: Request, res: Response) => {
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+
+    res.json({ message: 'Sesión cerrada exitosamente' });
+  } catch (error) {
+    res.status(500).json({ 
+      error: error instanceof Error ? error.message : 'Error desconocido'
+    });
   }
 };

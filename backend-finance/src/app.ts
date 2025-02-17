@@ -1,19 +1,23 @@
+import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express, { Application } from 'express';
-
+import authRoutes from './routes/auth';
 import transactionRoutes from './routes/transactions';
+import { requireAuth } from './middleware/auth';
 
 dotenv.config();
 
-const app: Application = express();
-const port: number = parseInt(process.env.PORT || '3000', 10);
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// Rutas
-app.use('/api/transactions', transactionRoutes);
+// Rutas públicas
+app.use('/api/auth', authRoutes);
+
+// Rutas protegidas
+app.use('/api/transactions', requireAuth, transactionRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
