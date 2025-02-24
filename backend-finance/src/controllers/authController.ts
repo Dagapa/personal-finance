@@ -4,6 +4,8 @@ import { SignUpDTO, SignInDTO, SignUpSchema, SignInSchema } from '../types/auth'
 import z from 'zod';
 
 export const signUp = async (req: Request<{}, {}, SignUpDTO>, res: Response) => {
+  console.log('Registrando usuario...');
+
   try {
     // Validar datos de entrada
     const validatedData = SignUpSchema.parse(req.body);
@@ -76,18 +78,5 @@ export const signIn = async (req: Request<{}, {}, SignInDTO>, res: Response) => 
         error: error instanceof Error ? error.message : 'Error desconocido'
       });
     }
-  }
-};
-
-export const signOut = async (req: Request, res: Response) => {
-  try {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-
-    res.json({ message: 'Sesión cerrada exitosamente' });
-  } catch (error) {
-    res.status(500).json({ 
-      error: error instanceof Error ? error.message : 'Error desconocido'
-    });
   }
 };
