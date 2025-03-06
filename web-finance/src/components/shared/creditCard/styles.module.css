@@ -1,0 +1,236 @@
+.creditCardContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.creditCard {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cardFront {
+  background: linear-gradient(135deg, #7928ca, #3b82f6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardBack {
+  background: linear-gradient(135deg, #4a5568, #1a202c);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cardChip {
+  width: 48px;
+  height: 40px;
+  background-color: rgba(255, 215, 0, 0.8);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chipInner {
+  width: 32px;
+  height: 24px;
+  background-color: rgba(255, 255, 224, 0.5);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chipLine {
+  width: 24px;
+  height: 4px;
+  background-color: #b8860b;
+}
+
+.contactless {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  transform: rotate(90deg);
+}
+
+.contactlessWave {
+  position: absolute;
+  width: 100%;
+  height: 12px;
+  border-top: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50% 50% 0 0;
+}
+
+.contactlessWave:nth-child(1) {
+  top: 0;
+}
+
+.contactlessWave:nth-child(2) {
+  top: 8px;
+}
+
+.contactlessWave:nth-child(3) {
+  top: 16px;
+}
+
+.cardNumber {
+  font-family: monospace;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cardLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4px;
+}
+
+.cardholderName,
+.expiryDate {
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.cardType {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visaLogo {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 24px;
+}
+
+.mastercardLogo {
+  display: flex;
+}
+
+.mastercardCircleRed,
+.mastercardCircleYellow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.mastercardCircleRed {
+  background-color: #ff5f00;
+  margin-right: -16px;
+  z-index: 1;
+}
+
+.mastercardCircleYellow {
+  background-color: #ffb700;
+}
+
+.amexLogo,
+.discoverLogo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.magneticStrip {
+  width: 100%;
+  height: 48px;
+  background-color: black;
+  margin-top: 16px;
+}
+
+.cvvContainer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cvvBox {
+  background-color: white;
+  height: 40px;
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.cvvValue {
+  font-family: monospace;
+  color: #333;
+}
+
+.cardBackFooter {
+  margin-top: auto;
+  width: 100%;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 480px) {
+  .creditCard {
+    height: 200px;
+  }
+
+  .cardNumber {
+    font-size: 18px;
+  }
+
+  .cardholderName,
+  .expiryDate {
+    font-size: 14px;
+  }
+
+  .visaLogo {
+    font-size: 20px;
+  }
+
+  .mastercardCircleRed,
+  .mastercardCircleYellow {
+    width: 28px;
+    height: 28px;
+  }
+}

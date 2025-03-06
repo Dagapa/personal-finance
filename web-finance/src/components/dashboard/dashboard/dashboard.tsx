@@ -1,3 +1,4 @@
+import { CreditCard } from '../../shared/creditCard/creditCard';
 import styles from './styles.module.css';
 
 export const Dashboard = () => {
@@ -26,6 +27,9 @@ export const Dashboard = () => {
           </li>
         </ul>
       </div>
+      <CreditCard
+        bankName="Davivienda"
+      />
     </section>
   );
 };
