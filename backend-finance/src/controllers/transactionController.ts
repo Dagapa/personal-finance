@@ -134,7 +134,7 @@ export const updateTransaction = async (
   }
 };
 
-export const deleteTransaction = async (req: AuthenticatedRequest, res: Response) => {
+export const deleteTransaction = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
 
@@ -148,7 +148,8 @@ export const deleteTransaction = async (req: AuthenticatedRequest, res: Response
 
     if (fetchError) {
       if (fetchError.code === 'PGRST116') {
-        return res.status(404).json({ error: 'Transacción no encontrada' });
+        res.status(404).json({ error: 'Transacción no encontrada' });
+        return;
       }
       throw fetchError;
     }

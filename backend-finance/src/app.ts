@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 
 // Rutas protegidas
-app.use('/api/transactions', requireAuth, transactionRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);

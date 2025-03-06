@@ -1,6 +1,6 @@
 export interface TransactionI {
-  amount: number;
-  category: string;
-  date: Date;
-  description: string;
+	amount: number;
+	category: string;
+	date: Date;
+	description: string;
 }
