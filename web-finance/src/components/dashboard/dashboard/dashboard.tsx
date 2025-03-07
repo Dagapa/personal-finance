@@ -1,13 +1,42 @@
-import { CreditCard } from '../../shared/creditCard/creditCard';
+import type { CreditCardType } from '../../../models/shared/creditCard';
+import { Wallet } from '../../shared/wallet/wallet';
 import styles from './styles.module.css';
+
+const CARDS = [
+	{
+		cardIndex: 1,
+		bankName: 'Davivienda',
+		cardholderName: 'JOHN DOE',
+		type: 'visa' as CreditCardType,
+	},
+	{
+		cardIndex: 2,
+		bankName: 'NEQUI',
+		cardholderName: 'JOHN DOE',
+		type: 'mastercard' as CreditCardType,
+	},
+	{
+		cardIndex: 3,
+		bankName: 'BANCOLOMBIA',
+		cardholderName: 'JOHN DOE',
+		type: 'mastercard' as CreditCardType,
+	},
+	{
+		cardIndex: 4,
+		bankName: 'NUBANK',
+		cardholderName: 'JOHN DOE',
+		type: 'mastercard' as CreditCardType,
+	},
+];
 
 export const Dashboard = () => {
 	return (
 		<section className={styles.dashboard}>
-			<div className={styles.head_boxes}>
+			<div className={styles.headBoxes}>
 				<h2>Balance</h2>
 			</div>
-			<div className={styles.head_boxes}>
+			<Wallet cards={CARDS} />
+			<div className={styles.headBoxes}>
 				<h2>Resumen</h2>
 			</div>
 			<div className={styles.summary}>
@@ -27,7 +56,6 @@ export const Dashboard = () => {
 					</li>
 				</ul>
 			</div>
-			<CreditCard bankName="Davivienda" />
 		</section>
 	);
 };

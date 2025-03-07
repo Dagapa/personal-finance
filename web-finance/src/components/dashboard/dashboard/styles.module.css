@@ -7,29 +7,28 @@
   padding: 1rem;
   width: 100%;
   height: 100%;
+}
 
-  .head_boxes {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
-    padding: 2rem;
-    gap: 1rem;
-    width: 100%;
-    height: 100%;
-  }
+.headBoxes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 2rem;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+}
 
-  .summary {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
-    padding: 2rem;
-    gap: 1rem;
-    width: 100%;
-    height: 100%;
-  }
-
+.summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 2rem;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
 }
