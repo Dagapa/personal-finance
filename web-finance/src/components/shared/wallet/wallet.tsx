@@ -17,14 +17,17 @@ export const Wallet: FC<WalletProps> = ({ cards }) => {
 		setCreditCards(updatedCards);
 	};
 
+	const cardsLength = creditCards.length;
+
 	return (
 		<div className={styles.wallet}>
 			<h1>Wallet</h1>
 			{creditCards
 				.slice()
 				.reverse()
-				.map((card) => {
-					const index = { '--index': card.cardIndex } as CSSProperties;
+				.map((card, _index) => {
+					_index = cardsLength - _index - 1;
+					const index = { '--index': _index } as CSSProperties;
 					return (
 						<div
 							key={`${card.bankName}_${card.type}_${card.cardholderName}`}
