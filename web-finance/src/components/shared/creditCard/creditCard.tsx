@@ -1,18 +1,26 @@
+import type { CreditCardType } from '../../../models/shared/creditCard';
 import styles from './styles.module.css';
 
-interface CreditCardProps {
+export interface CreditCardProps {
+	cardIndex: number;
 	bankName?: string;
+	type?: CreditCardType;
 	cardholderName?: string;
-	type?: 'visa' | 'mastercard' | 'amex' | 'discover';
+	onCLick?: (card: CreditCardProps) => void;
 }
 
 export function CreditCard({
-	cardholderName = 'JOHN DOE',
-	bankName = 'NEQUI',
+	cardIndex,
 	type = 'visa',
+	bankName = 'NEQUI',
+	cardholderName = 'JOHN DOE',
+	onCLick,
 }: CreditCardProps) {
 	return (
-		<div className={`${styles.creditCardContainer}`}>
+		<div
+			className={`${styles.creditCardContainer}`}
+			onClick={() => onCLick?.({ cardIndex, bankName, type, cardholderName })}
+		>
 			<div className={`${styles.creditCard}`}>
 				<div className={styles.cardFront}>
 					<div className={styles.cardContent}>
