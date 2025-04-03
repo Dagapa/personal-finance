@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Dashboard } from './components/dashboard/dashboard/dashboard';
+import { Header } from './components/shared/header/header';
 import { Transaction } from './components/transaction/transaction';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
 
 	return (
 		<main className="bg-slate-800 text-white min-w-screen min-h-screen relative flex flex-col items-center justify-center p-15">
+			<Header />
 			<Dashboard />
 
 			<div

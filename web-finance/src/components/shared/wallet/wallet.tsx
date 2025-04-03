@@ -25,14 +25,14 @@ export const Wallet: FC<WalletProps> = ({ cards }) => {
 			{creditCards
 				.slice()
 				.reverse()
-				.map((card, _index) => {
-					_index = cardsLength - _index - 1;
-					const index = { '--index': _index } as CSSProperties;
+				.map((card, index) => {
+					const adjustedIndex = cardsLength - index - 1;
+					const indexStyle = { '--index': adjustedIndex } as CSSProperties;
 					return (
 						<div
 							key={`${card.bankName}_${card.type}_${card.cardholderName}`}
 							className={styles.walletCard}
-							style={index}
+							style={indexStyle}
 						>
 							<CreditCard {...card} onCLick={handleOrderCards} />
 						</div>

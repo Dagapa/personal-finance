@@ -1,5 +1,6 @@
-import type { CreditCardType } from '../../../models/shared/creditCard';
-import { Wallet } from '../../shared/wallet/wallet';
+import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
+import type { CreditCardType } from '@models/shared/creditCard';
+import { Wallet } from '@shared/wallet/wallet';
 import styles from './styles.module.css';
 
 const CARDS = [
@@ -32,9 +33,7 @@ const CARDS = [
 export const Dashboard = () => {
 	return (
 		<section className={styles.dashboard}>
-			<div className={styles.headBoxes}>
-				<h2>Balance</h2>
-			</div>
+			<DashboardHead />
 			<Wallet cards={CARDS} />
 			<div className={styles.headBoxes}>
 				<h2>Resumen</h2>

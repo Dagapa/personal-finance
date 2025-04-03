@@ -1,5 +1,5 @@
-import { useTransaction } from '../../hooks/useTransaction';
-import type { TransactionI } from '../../models/transaction';
+import useTransaction from '@hooks/useTransaction.ts';
+import type { TransactionI } from '@models/transaction';
 
 export const Transaction = () => {
 	const { addTransaction } = useTransaction();

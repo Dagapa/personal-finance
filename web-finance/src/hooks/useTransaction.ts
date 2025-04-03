@@ -4,7 +4,7 @@ interface UseTransaction {
 	addTransaction: (transaction: TransactionI) => void;
 }
 
-export const useTransaction = (): UseTransaction => {
+const useTransaction = (): UseTransaction => {
 	const addTransaction = (transaction: TransactionI) => {
 		console.log(transaction);
 	};
@@ -13,3 +13,5 @@ export const useTransaction = (): UseTransaction => {
 		addTransaction,
 	};
 };
+
+export default useTransaction;
