@@ -7,5 +7,25 @@
 		{
 			"path": "./tsconfig.node.json"
 		}
-	]
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@hooks/*": [
+				"src/hooks/*"
+			],
+			"@models/*": [
+				"src/models/*"
+			],
+			"@shared/*": [
+				"src/components/shared/*"
+			],
+			"@dashboard/*": [
+				"src/components/dashboard/*"
+			],
+			"@transaction/*": [
+				"src/components/transaction/*"
+			],
+		}
+	}
 }
