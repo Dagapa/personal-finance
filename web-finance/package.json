@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "biome check && tsc -b && vite build",
+		"test": "jest",
 		"preview": "vite preview",
 		"lint": "biome check",
 		"lint:fix": "biome check --write"
@@ -17,10 +18,19 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@testing-library/jest-dom": "^6.6.3",
+		"@testing-library/react": "^16.3.0",
+		"@types/jest": "^29.5.14",
+		"@types/node": "^22.14.1",
 		"@types/react": "^19.0.8",
 		"@types/react-dom": "^19.0.3",
 		"@vitejs/plugin-react-swc": "^3.5.0",
 		"globals": "^15.14.0",
+		"identity-obj-proxy": "^3.0.0",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
+		"ts-jest": "^29.3.2",
+		"ts-node": "^10.9.2",
 		"typescript": "~5.6.2",
 		"vite": "^6.0.5"
 	}

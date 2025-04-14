@@ -10,6 +10,17 @@
 	],
 	"compilerOptions": {
 		"baseUrl": ".",
+		"jsx": "react-jsx",
+		"esModuleInterop": true,
+		"module": "esnext",
+		"target": "es6",
+		"moduleResolution": "node",
+		"allowJs": true,
+		"isolatedModules": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noEmit": true,
+		"skipLibCheck": true,
 		"paths": {
 			"@hooks/*": [
 				"src/hooks/*"
