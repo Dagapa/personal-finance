@@ -2,8 +2,8 @@ import styles from './styles.module.css';
 
 export const DashboardHead = () => {
 	return (
-		<section className={styles.dashboardHead}>
-			<article className={styles.article}>
+		<section className="col-span-1 grid grid-cols-[repeat(auto-fit,_minmax(150px,_1fr))] gap-2 border-2 rounded-xl p-4 w-full h-full">
+			<article className="flex flex-col justify-center items-start rounded-md shadow-2xs">
 				<header>
 					<h2>Balance Mensual</h2>
 				</header>

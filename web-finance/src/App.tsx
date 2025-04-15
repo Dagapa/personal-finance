@@ -11,11 +11,11 @@ function App() {
 	};
 
 	return (
-		<main>
+		<main className="flex flex-col gap-4">
 			<Header />
 			<Dashboard />
 
-			<div>
+			{/* <div>
 				<div>
 					<button
 						type="button"
@@ -34,7 +34,7 @@ function App() {
 				>
 					Agregar transacción
 				</button>
-			)}
+			)} */}
 		</main>
 	);
 }
