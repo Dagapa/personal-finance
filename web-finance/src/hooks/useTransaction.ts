@@ -1,17 +1,72 @@
-import type { TransactionI } from '../models/transaction';
+import { useState } from 'react';
 
-interface UseTransaction {
-	addTransaction: (transaction: TransactionI) => void;
+interface Transaction {
+	id: number;
+	amount: number;
+	category: string;
+	date: string;
+	description: string;
 }
 
-const useTransaction = (): UseTransaction => {
-	const addTransaction = (transaction: TransactionI) => {
-		console.log(transaction);
+const STORAGE_KEY = 'transactions';
+
+const useTransactions = () => {
+	const [transactions, setTransactions] = useState<Transaction[]>(() => {
+		const stored = localStorage.getItem(STORAGE_KEY);
+		return stored ? JSON.parse(stored) : [];
+	});
+
+	const addTransaction = (transaction: Omit<Transaction, 'id'>) => {
+		const newTransaction = {
+			...transaction,
+			id: Date.now(),
+			date: new Date(transaction.date).toISOString()
+		};
+
+		const updatedTransactions = [...transactions, newTransaction];
+		setTransactions(updatedTransactions);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
 	};
 
+	const updateTransaction = (id: number, updatedData: Partial<Transaction>) => {
+		const updatedTransactions = transactions.map(transaction =>
+			transaction.id === id ? { ...transaction, ...updatedData } : transaction
+		);
+		setTransactions(updatedTransactions);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
+	};
+
+	const deleteTransaction = (id: number) => {
+		const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
+		setTransactions(updatedTransactions);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
+	};
+
+	// Función para sincronizar con la API
+	// const syncWithApi = async () => {
+	// 	try {
+	// 	 	Implementar la lógica de sincronización con la API
+	// 		Por ejemplo:
+	// 		await fetch('/api/transactions', {
+	// 		  method: 'POST',
+	// 		  body: JSON.stringify(transactions)
+	// 		});
+	// 	} catch (error) {
+	// 		console.error('Error al sincronizar con la API:', error);
+	// 	}
+	// };
+
+	// Sincronizar al guardar cambios
+	// useEffect(() => {
+	// 	syncWithApi();
+	// }, [transactions]);
+
 	return {
+		transactions,
 		addTransaction,
+		updateTransaction,
+		deleteTransaction
 	};
 };
 
-export default useTransaction;
+export default useTransactions;
