@@ -48,7 +48,7 @@ export function Table<T extends Record<string, any>>({
       const extractedHeaders = Object.keys(firstItem).filter((key) => !excludeColumns.includes(key))
       setHeaders(extractedHeaders)
     }
-  }, [data, excludeColumns])
+  }, [data])
 
   // Aplicar anchos de columna desde th a td
   useEffect(() => {
@@ -136,7 +136,7 @@ export function Table<T extends Record<string, any>>({
   }
 
   return (
-    <div className={`w-full overflow-x-auto ${className}`}>
+    <div className={`w-full h-full overflow-auto ${className}`}>
       <table ref={tableRef} className={` w-full border-collapse ${tableClassName}`}>
         <thead className={`bg-muted ${theadClassName}`}>
           <tr className={` border-b ${trClassName}`}>
