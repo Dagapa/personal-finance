@@ -7,8 +7,13 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"include": ["src/**/*.ts", "src/**/*.tsx"],
-		"ignore": ["node_modules"]
+		"include": [
+			"src/**/*.ts",
+			"src/**/*.tsx"
+		],
+		"ignore": [
+			"node_modules"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -28,6 +33,14 @@
 			},
 			"a11y": {
 				"useKeyWithClickEvents": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off",
+				"noAssignInExpressions": "off"
+			},
+			"complexity": {
+				"noForEach": "off"
 			}
 		}
 	},
