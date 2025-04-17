@@ -4,9 +4,10 @@ import { Table } from '@shared/table/table';
 import useTransactions from '@hooks/useTransaction';
 import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
 import { TransactionModal } from '@shared/modals/transaction/transactionModal';
+import PieChartByCategory from '@shared/pieChart/pieChart';
 
 export const Dashboard = () => {
-	const { transactions, addTransaction } = useTransactions();
+	const { transactions, addTransaction, deleteTransaction } = useTransactions();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
@@ -30,7 +31,11 @@ export const Dashboard = () => {
 				</div>
 				<div className='flex flex-col w-full h-full col-span-2 rounded-4xl p-4 bg-gray-900'>
 					<h2 className="text-xl">Ultimas transacciones</h2>
-					<Table data={transactions} />
+					<Table
+						data={transactions}
+						showDeleteButton={true}
+						onDelete={deleteTransaction}
+					/>
 				</div>
 				<div className='flex justify-center items-center'>
 					<button
@@ -41,6 +46,7 @@ export const Dashboard = () => {
 						Agregar transacción
 					</button>
 				</div>
+				<PieChartByCategory data={transactions} />
 			</section>
 			<TransactionModal
 				isOpen={isModalOpen}

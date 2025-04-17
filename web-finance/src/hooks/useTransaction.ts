@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { OnAddTransaction, TransactionI } from '@models/transaction';
-import { transformTransactionsToVisualice } from '@services/transactionsServices';
 
 const STORAGE_KEY = 'transactions';
 
@@ -16,7 +15,7 @@ const useTransactions = () => {
 			id: Date.now(),
 			date: new Date(transaction.date).toISOString()
 		};
-		onSetTransactions([newTransaction]);
+		onSetTransactions([...transactions, newTransaction]);
 	};
 
 	const updateTransaction = (id: number, updatedData: Partial<TransactionI>) => {
@@ -32,9 +31,8 @@ const useTransactions = () => {
 	};
 
 	const onSetTransactions = (newTransactions: TransactionI[]) => {
-		const transformedTransactions = transformTransactionsToVisualice(newTransactions);
-		setTransactions(transformedTransactions);
-		localStorage.setItem(STORAGE_KEY, JSON.stringify([...transactions, transformedTransactions]));
+		setTransactions(newTransactions);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(newTransactions));
 	};
 
 	// Función para sincronizar con la API

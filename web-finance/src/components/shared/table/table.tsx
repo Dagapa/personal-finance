@@ -1,6 +1,5 @@
-"use client"
-
 import { useEffect, useRef, useState } from "react"
+import type { TransactionI } from "@models/transaction"
 
 interface ResponsiveTableProps<T extends Record<string, any>> {
   data: T[]
@@ -16,6 +15,8 @@ interface ResponsiveTableProps<T extends Record<string, any>> {
   excludeColumns?: string[]
   columnLabels?: Record<string, string>
   sortable?: boolean
+  showDeleteButton?: boolean
+  onDelete?: (id: number) => void
 }
 
 export function Table<T extends Record<string, any>>({
@@ -32,6 +33,8 @@ export function Table<T extends Record<string, any>>({
   excludeColumns = [],
   columnLabels = {},
   sortable = false,
+  showDeleteButton = false,
+  onDelete,
 }: ResponsiveTableProps<T>) {
   const [headers, setHeaders] = useState<string[]>([])
   const [sortConfig, setSortConfig] = useState<{
@@ -157,6 +160,9 @@ export function Table<T extends Record<string, any>>({
                 </th>
               )
             })}
+            {(showDeleteButton) && (
+              <th className={`px-4 py-3 text-left font-medium text-muted-foreground ${thClassName}`}>Acciones</th>
+            )}
           </tr>
         </thead>
         <tbody className={`divide-y ${tbodyClassName}`}>
@@ -172,10 +178,21 @@ export function Table<T extends Record<string, any>>({
                   {row[header]?.toString() || ""}
                 </td>
               ))}
+              {(showDeleteButton) && (
+                <td className={`px-4 py-3 flex gap-2 ${tdClassName}`}>
+                  <button
+                    className="text-red-600 hover:underline"
+                    type="button"
+                    onClick={() => onDelete?.(row.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </div >
   )
 }
