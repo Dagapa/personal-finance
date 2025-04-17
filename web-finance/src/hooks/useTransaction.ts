@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { TransactionI } from '@models/transaction';
+import type { OnAddTransaction, TransactionI } from '@models/transaction';
 
 const STORAGE_KEY = 'transactions';
 
@@ -9,7 +9,7 @@ const useTransactions = () => {
 		return stored ? JSON.parse(stored) : [];
 	});
 
-	const addTransaction = (transaction: Omit<TransactionI, 'id'>) => {
+	const addTransaction: OnAddTransaction = (transaction) => {
 		const newTransaction = {
 			...transaction,
 			id: Date.now(),
