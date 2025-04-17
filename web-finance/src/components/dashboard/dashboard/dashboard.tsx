@@ -1,39 +1,9 @@
-import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
-import type { CreditCardType } from '@models/shared/creditCard';
-import { Wallet } from '@shared/wallet/wallet';
-import useTransactions from '@hooks/useTransaction';
+import { useState, useEffect } from 'react';
 import { Graph } from '@shared/graph/graph';
 import { Table } from '@shared/table/table';
-import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import useTransactions from '@hooks/useTransaction';
+import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
 import { TransactionModal } from '@shared/modals/transaction/transactionModal';
-
-const CARDS = [
-	{
-		cardIndex: 1,
-		bankName: 'Davivienda',
-		cardholderName: 'JOHN DOE',
-		type: 'visa' as CreditCardType,
-	},
-	{
-		cardIndex: 2,
-		bankName: 'NEQUI',
-		cardholderName: 'JOHN DOE',
-		type: 'mastercard' as CreditCardType,
-	},
-	{
-		cardIndex: 3,
-		bankName: 'BANCOLOMBIA',
-		cardholderName: 'JOHN DOE',
-		type: 'mastercard' as CreditCardType,
-	},
-	{
-		cardIndex: 4,
-		bankName: 'NUBANK',
-		cardholderName: 'JOHN DOE',
-		type: 'mastercard' as CreditCardType,
-	},
-];
 
 export const Dashboard = () => {
 	const { transactions, addTransaction } = useTransactions();

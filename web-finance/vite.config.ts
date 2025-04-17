@@ -11,6 +11,7 @@ export default defineConfig({
 		alias: {
 			'@hooks': '/src/hooks',
 			'@models': '/src/models',
+			'@services': '/src/services',
 			'@shared': '/src/components/shared',
 			'@dashboard': '/src/components/dashboard',
 			'@transaction': '/src/components/transaction'

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { OnAddTransaction, TransactionI } from '@models/transaction';
+import { transformTransactionsToVisualice } from '@services/transactionsServices';
 
 const STORAGE_KEY = 'transactions';
 
@@ -15,24 +16,25 @@ const useTransactions = () => {
 			id: Date.now(),
 			date: new Date(transaction.date).toISOString()
 		};
-
-		const updatedTransactions = [...transactions, newTransaction];
-		setTransactions(updatedTransactions);
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
+		onSetTransactions([newTransaction]);
 	};
 
 	const updateTransaction = (id: number, updatedData: Partial<TransactionI>) => {
 		const updatedTransactions = transactions.map(transaction =>
 			transaction.id === id ? { ...transaction, ...updatedData } : transaction
 		);
-		setTransactions(updatedTransactions);
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
+		onSetTransactions(updatedTransactions);
 	};
 
 	const deleteTransaction = (id: number) => {
 		const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
-		setTransactions(updatedTransactions);
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
+		onSetTransactions(updatedTransactions);
+	};
+
+	const onSetTransactions = (newTransactions: TransactionI[]) => {
+		const transformedTransactions = transformTransactionsToVisualice(newTransactions);
+		setTransactions(transformedTransactions);
+		localStorage.setItem(STORAGE_KEY, JSON.stringify([...transactions, transformedTransactions]));
 	};
 
 	// Función para sincronizar con la API
