@@ -1,22 +1,15 @@
 import { useState } from 'react';
-
-interface Transaction {
-	id: number;
-	amount: number;
-	category: string;
-	date: string;
-	description: string;
-}
+import type { TransactionI } from '@models/transaction';
 
 const STORAGE_KEY = 'transactions';
 
 const useTransactions = () => {
-	const [transactions, setTransactions] = useState<Transaction[]>(() => {
+	const [transactions, setTransactions] = useState<TransactionI[]>(() => {
 		const stored = localStorage.getItem(STORAGE_KEY);
 		return stored ? JSON.parse(stored) : [];
 	});
 
-	const addTransaction = (transaction: Omit<Transaction, 'id'>) => {
+	const addTransaction = (transaction: Omit<TransactionI, 'id'>) => {
 		const newTransaction = {
 			...transaction,
 			id: Date.now(),
@@ -28,7 +21,7 @@ const useTransactions = () => {
 		localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedTransactions));
 	};
 
-	const updateTransaction = (id: number, updatedData: Partial<Transaction>) => {
+	const updateTransaction = (id: number, updatedData: Partial<TransactionI>) => {
 		const updatedTransactions = transactions.map(transaction =>
 			transaction.id === id ? { ...transaction, ...updatedData } : transaction
 		);
