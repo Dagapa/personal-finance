@@ -3,6 +3,7 @@ import type { CreditCardType } from '@models/shared/creditCard';
 import { Wallet } from '@shared/wallet/wallet';
 import useTransactions from '@hooks/useTransaction';
 import { Graph } from '@shared/graph/graph';
+import { Table } from '@shared/table/table';
 
 const CARDS = [
 	{
@@ -31,6 +32,49 @@ const CARDS = [
 	},
 ];
 
+const exampleData = [
+	{
+		id: 1,
+		nombre: "Juan Pérez",
+		email: "juan@example.com",
+		rol: "Administrador",
+		estado: "Activo",
+		fechaRegistro: "2023-01-15",
+	},
+	{
+		id: 2,
+		nombre: "María López",
+		email: "maria@example.com",
+		rol: "Editor",
+		estado: "Inactivo",
+		fechaRegistro: "2023-02-20",
+	},
+	{
+		id: 3,
+		nombre: "Carlos Rodríguez",
+		email: "carlos@example.com",
+		rol: "Usuario",
+		estado: "Activo",
+		fechaRegistro: "2023-03-10",
+	},
+	{
+		id: 4,
+		nombre: "Ana Martínez",
+		email: "ana@example.com",
+		rol: "Editor",
+		estado: "Activo",
+		fechaRegistro: "2023-04-05",
+	},
+	{
+		id: 5,
+		nombre: "Roberto Sánchez",
+		email: "roberto@example.com",
+		rol: "Usuario",
+		estado: "Inactivo",
+		fechaRegistro: "2023-05-12",
+	},
+]
+
 export const Dashboard = () => {
 	const { transactions } = useTransactions();
 
@@ -46,21 +90,8 @@ export const Dashboard = () => {
 				</div>
 			</div>
 			<div className='col-span-2'>
-				<h2 className="text-xl">Transacciones de hoy</h2>
-				<ul className="flex flex-col gap-4 w-full">
-					<li className="flex items-center center gap-1.5 text-sm text-zinc-300">
-						<span>$ -3000</span>
-						<p>House reparations</p>
-					</li>
-					<li className="flex items-center center gap-2 text-sm text-zinc-300">
-						<span>$ -1000</span>
-						<p>Travel to the Europe</p>
-					</li>
-					<li className="flex items-center center gap-2 text-sm text-zinc-300">
-						<span>$ -20</span>
-						<p>Buy cookies</p>
-					</li>
-				</ul>
+				<h2 className="text-xl">Ultimas transacciones</h2>
+				<Table data={exampleData} />
 			</div>
 			<div className='flex justify-center items-center'>
 				<button
