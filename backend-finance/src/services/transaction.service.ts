@@ -1,4 +1,4 @@
-const prisma = require('../lib/prisma');
+import prisma from '../lib/prisma';
 
 export async function createTransaction(data: any) {
   return await prisma.transaction.create({ data });
