@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { OnAddTransaction, TransactionI } from '@models/transaction';
-import { createTransaction, getTransactions } from '@services/transactionsServices';
+import { createTransaction, deleteTransaction, getTransactions } from '@services/transactionsServices';
 
 const STORAGE_KEY = 'transactions';
 
@@ -33,9 +33,12 @@ const useTransactions = () => {
 		onSetTransactions(updatedTransactions);
 	};
 
-	const deleteTransaction = (id: number) => {
-		const updatedTransactions = transactions.filter(transaction => transaction.id !== id);
-		onSetTransactions(updatedTransactions);
+	const onDeleteTransaction = (id: number) => {
+		deleteTransaction(id.toString()).then(() => {
+			onSetTransactions(transactions.filter(transaction => transaction.id !== id));
+		}).catch(error => {
+			console.error('Error deleting transaction:', error);
+		});
 	};
 
 	const onSetTransactions = (newTransactions: TransactionI[]) => {
@@ -66,7 +69,7 @@ const useTransactions = () => {
 		transactions,
 		addTransaction,
 		updateTransaction,
-		deleteTransaction
+		onDeleteTransaction
 	};
 };
 
