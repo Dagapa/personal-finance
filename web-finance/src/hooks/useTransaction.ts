@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { OnAddTransaction, TransactionI } from '@models/transaction';
+import { createTransaction, getTransactions } from '@services/transactionsServices';
 
 const STORAGE_KEY = 'transactions';
 
@@ -9,13 +10,20 @@ const useTransactions = () => {
 		return stored ? JSON.parse(stored) : [];
 	});
 
+	useEffect(() => {
+		getTransactions().then((res) => onSetTransactions(res));
+	}, [])
+
 	const addTransaction: OnAddTransaction = (transaction) => {
 		const newTransaction = {
 			...transaction,
-			id: Date.now(),
 			date: new Date(transaction.date).toISOString()
 		};
-		onSetTransactions([...transactions, newTransaction]);
+		createTransaction(newTransaction).then((res: TransactionI) => {
+			onSetTransactions([...transactions, res]);
+		}).catch(error => {
+			console.error('Error creating transaction:', error);
+		});
 	};
 
 	const updateTransaction = (id: number, updatedData: Partial<TransactionI>) => {
