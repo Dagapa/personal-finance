@@ -10,11 +10,12 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@hooks': '/src/hooks',
+			'@config': '/src/config',
 			'@models': '/src/models',
 			'@services': '/src/services',
 			'@shared': '/src/components/shared',
 			'@dashboard': '/src/components/dashboard',
-			'@transaction': '/src/components/transaction'
+			'@transaction': '/src/components/transaction',
 		}
 	}
 });

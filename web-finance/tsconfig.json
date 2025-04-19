@@ -40,6 +40,9 @@
 			"@transaction/*": [
 				"src/components/transaction/*"
 			],
+			"@config/*": [
+				"src/config/*"
+			]
 		}
 	}
 }
