@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Graph } from '@shared/graph/graph';
 import { Table } from '@shared/table/table';
 import useTransactions from '@hooks/useTransaction';
+import PieChartByCategory from '@shared/pieChart/pieChart';
 import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
 import { TransactionModal } from '@shared/modals/transaction/transactionModal';
-import PieChartByCategory from '@shared/pieChart/pieChart';
 
 export const Dashboard = () => {
 	const { transactions, addTransaction, deleteTransaction } = useTransactions();
