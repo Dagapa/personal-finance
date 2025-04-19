@@ -1,13 +1,21 @@
 // PieChartByCategory.tsx
+import { FC } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import type { TransactionI } from '@models/transaction';
+import type { TransactionI, TransactionType } from '@models/transaction';
+
+interface PieChartProps {
+  data: TransactionI[];
+  type?: TransactionType;
+}
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChartByCategory = ({ data }: { data: TransactionI[] }) => {
-  // Agrupar por categoría y sumar los amounts
-  const groupedData: Record<string, number> = data.reduce((acc, curr) => {
+export const PieChart: FC<PieChartProps> = ({ data, type = 'expense' }) => {
+  // Filter transactions based on type
+  const filteredData = data.filter(transaction => transaction.type === type);
+
+  const groupedData: Record<string, number> = filteredData.reduce((acc, curr) => {
     acc[curr.category] = (acc[curr.category] || 0) + curr.amount;
     return acc;
   }, {} as Record<string, number>);
@@ -35,5 +43,3 @@ const PieChartByCategory = ({ data }: { data: TransactionI[] }) => {
     </div>
   );
 };
-
-export default PieChartByCategory;
