@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Graph } from '@shared/graph/graph';
 import { Table } from '@shared/table/table';
 import useTransactions from '@hooks/useTransaction';
-import PieChartByCategory from '@shared/pieChart/pieChart';
+import { PieChart } from '@shared/pieChart/pieChart';
 import { DashboardHead } from '@dashboard/dashboardHead/dashboardHead';
 import { TransactionModal } from '@shared/modals/transaction/transactionModal';
 
 export const Dashboard = () => {
-	const { transactions, addTransaction, deleteTransaction } = useTransactions();
+	const { transactions, addTransaction, onDeleteTransaction } = useTransactions();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
@@ -34,7 +34,7 @@ export const Dashboard = () => {
 					<Table
 						data={transactions}
 						showDeleteButton={true}
-						onDelete={deleteTransaction}
+						onDelete={onDeleteTransaction}
 					/>
 				</div>
 				<div className='flex justify-center items-center'>
@@ -46,7 +46,7 @@ export const Dashboard = () => {
 						Agregar transacción
 					</button>
 				</div>
-				<PieChartByCategory data={transactions} />
+				<PieChart data={transactions} />
 			</section>
 			<TransactionModal
 				isOpen={isModalOpen}
